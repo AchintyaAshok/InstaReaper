@@ -67,7 +67,6 @@ const checkInstacart = (httpClient) => {
 				}
 				else {
 					let deliveryDetails = deliveryModules[0]['data']['service_options']['tracking_params']['delivery_options']
-					//console.log(deliveryDetails)
 					let openSlots = deliveryDetails.filter((d) => d['available_ind'])
 					if (openSlots.length > 0) {
 						console.log('Delivery Options discovered!!')
@@ -107,10 +106,10 @@ const run = () => {
 
 	// Base URL for the instacart delivery api.
 	const instacartBaseURL = `https://www.instacart.com/v3/containers/${marketName}/next_gen/retailer_information/content/delivery`
-
+	const cleanedCookies = cookies.trim()
 	const httpClient = axios.create({
 		baseURL: instacartBaseURL,
-		headers: { 'cookie': cookies }
+		headers: { 'cookie': cleanedCookies }
 	})
 
 	let now = Date.now()
@@ -122,6 +121,7 @@ const run = () => {
 		.then((result) => {
 			notify.postSystemNotification(result, debugNotifications)
 			notify.sendMail(result, emails, debugEmails)
+			// notify.sendText(result, 'xxxx')
 		})
 		.catch((e) => {
 			console.log(e)
