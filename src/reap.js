@@ -62,7 +62,7 @@ const checkInstacart = (httpClient) => {
 					} else return false
 				})
 				if (deliveryModules.length == 0) { 
-					console.log('No delivery module found.')
+					console.log('No delivery data discovered.')
 					resolve({success: false, data: {}})
 				}
 				else {
