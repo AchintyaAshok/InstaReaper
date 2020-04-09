@@ -99,6 +99,9 @@ const nextRun = (now, pollInterval) => {
  * Main.
  */
 const run = () => {	
+	
+	let whiteCookies = cookies.trim()
+
 	const marketName = argv.m
 	const emails = argv.e
 	const debugEmails = argv.de
@@ -110,7 +113,7 @@ const run = () => {
 
 	const httpClient = axios.create({
 		baseURL: instacartBaseURL,
-		headers: { 'cookie': cookies }
+		headers: { 'cookie': whiteCookies }
 	})
 
 	let now = Date.now()

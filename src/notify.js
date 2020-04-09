@@ -1,4 +1,6 @@
 const sendmail = require('sendmail')()
+var sendmailer = require('nodemailer');
+
 const NotificationCenter = require('node-notifier').NotificationCenter;
 
 const notifier = new NotificationCenter({
@@ -33,28 +35,30 @@ const postNotification = (instaDetails, debug=false) => {
 	}
 }
 
+const {exec} = require('child_process');
+
 /**
- * Sends an email to the prescribed contacts.
+ * Sends an Text to the prescribed contacts in the file called send_text.sh.
  * @param {} instaDetails 
- */
+*/
 const sendMail = (instaDetails, emails, debug=false) => {
 	let requestSucceeded = instaDetails.success
 	if (debug || requestSucceeded) {
-		console.log('=> Sending email.')
-		let deliveryData = instaDetails.data
-		sendmail({
-			from: 'test-insta@laconik.io',
-			to: emails.join(', '),
-			subject: '[InstaReaper] Instacart Delivery Availability',
-		html: `<h1>InstaReaper Details</h1><hr/><h4>Delivery Windows Discovered? ${requestSucceeded}</h4><p>${JSON.stringify(deliveryData)}</p>`,
-		  }, function(err, reply) {
-			console.log(err && err.stack);
-			console.dir(reply);
-		});
+
+	        console.log('=> Sending Text.')
+
+	         let deliveryData = instaDetails.data
+
+	         console.log('=> Yah! Delivery Slot Found.')
+                 exec('./send_text.sh');
+	    
+
 	} else {
-		console.log('=> Skipping mail.')
+		console.log('=> Skipping Text No Delivery Slot Found.')
 	}
 }
+
+
 
 module.exports = {
     postSystemNotification: postNotification,

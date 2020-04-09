@@ -1,6 +1,13 @@
 # InstaReaper
 Your one-stop shop for getting near instantaneous notifications when your Instacart Market has delivery options available.
 
+1. install nide from https://nodejs.org/en/
+
+2. Get a Git account
+
+3. Clone the Git for the source code
+
+
 ## Setup
 Setup your Node environment & run while in this project:
 ```bash
